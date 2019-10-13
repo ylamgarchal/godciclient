@@ -1,0 +1,32 @@
+= Go-dciclient
+
+== How to use
+
+```Go
+var dciAPI = dci.GetClient(
+    "http://127.0.0.1:5000/api/v1",
+	"admin",
+	"admin")
+
+mytopic, err := dciAPI.GetTopicByName("RHEL-8.1")
+if err != nil {
+	panic(err)
+}
+
+fmt.Printf("Topic id: %s\n", mytopic.ID)
+fmt.Printf("Topic name: %s\n", mytopic.Name)
+```
+
+== How to run tests
+
+First you need a DCI stack running, see link:https://github.com/redhat-cip/dci-dev-env[dci dev env]. It will deploy a dci control server api listening to http://127.0.0.1:5000. Provision the database with dci-control-server/bin/dci-dbprovisioning script.
+
+```Bash
+$ git clone https://github.com/ylamgarchal/godciclient
+$ cd godciclient
+$ go run test -v ./tests/e2e
+=== RUN   TestGetTopicByName
+--- PASS: TestGetTopicByName (1.04s)
+PASS
+ok      github.com/ylamgarchal/godciclient/tests/e2e
+```
